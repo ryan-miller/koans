@@ -14,18 +14,18 @@
 #   about_triangle_project_2.rb
 #
 def triangle(a, b, c)
-  # WRITE THIS CODE
-  # add a, b, c to array, compress array and get count
+
   sides = []
   sides << a << b << c
+  sorted_sides = sides.sort
   unique_sides = sides.uniq.length
-  if unique_sides == 1
-    return :equilateral
-  elsif unique_sides == 2
-    return :isosceles
-  else 
-    return :scalene
-  end
+  
+  raise TriangleError unless sorted_sides.first > 0
+  raise TriangleError unless sorted_sides.first + sorted_sides.fetch(1) > sorted_sides.last
+
+  return :equilateral if unique_sides == 1
+  return :isosceles if unique_sides == 2
+  return :scalene
 end
 
 # Error class used in part 2.  No need to change this code.
