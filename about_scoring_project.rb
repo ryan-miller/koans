@@ -29,8 +29,35 @@ require File.expand_path(File.dirname(__FILE__) + '/edgecase')
 #
 # Your goal is to write the score method.
 
+def score5and1(hand, dots)
+  
+  multiplier = 0
+  multiplier = 50 if dots == 5
+  multiplier = 100 if dots == 1
+
+  occurrences = hand[dots]
+  handicap = occurrences < 3 ? occurrences : occurrences - 3
+
+  return handicap * multiplier
+  
+end
+
+
 def score(dice)
-  # You need to write this method
+  score = 0
+  return score if dice.length == 0
+  # create hash to find how many of each possible value there is
+  dice_count = {}
+  # populate the hash with count of each value
+  (1..6).each {|n| dice_count[n] = dice.count(n)}
+
+  score += 1000 if dice_count[1] >= 3
+  score += score5and1(dice_count, 1)
+  score += score5and1(dice_count, 5)
+
+  dice_count.each {|k,v| (k != 1 && v >= 3) ? score += k * 100 : 0 }
+  
+  score
 end
 
 class AboutScoringProject < EdgeCase::Koan
