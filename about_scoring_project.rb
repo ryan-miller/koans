@@ -50,11 +50,13 @@ def score(dice)
   dice_count = {}
   # populate the hash with count of each value
   (1..6).each {|n| dice_count[n] = dice.count(n)}
-
+  # look for specific 1,1,1
   score += 1000 if dice_count[1] >= 3
+  # score 1s
   score += score5and1(dice_count, 1)
+  # score 5s
   score += score5and1(dice_count, 5)
-
+  # score others
   dice_count.each {|k,v| (k != 1 && v >= 3) ? score += k * 100 : 0 }
   
   score
