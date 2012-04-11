@@ -10,7 +10,6 @@ class DiceSet
     (1..die_count).each {|n| 
       @values << 1 + rand(5)
     }
-    puts @values
   end
 end
 
